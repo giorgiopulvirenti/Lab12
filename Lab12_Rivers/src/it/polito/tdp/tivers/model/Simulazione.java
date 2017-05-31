@@ -18,35 +18,38 @@ List<Flow> list;
 
 public Simulazione(String s, River r) {
 	super();
-	this.q = Double.parseDouble(s)*r.getFlowMedio()*30*3600*24;
+	this.q = Double.parseDouble(s)*r.getFlowMedio();
 	this.r = r;
 	this.c=q/2;
 	this.fOutMin=r.getFlowMedio()*0.8;
+	System.out.println(r.getFlowMedio()+"  @@@  "+Double.parseDouble(s)+"   "+q+"  "+c);
 	list=r.getFlows();
 	
 }
 public void  run(){
 	num=0;
 	cMed=0;
+	q=q*86400;
+	c=c*86400;
 	Collections.sort(list);
 	for(Flow f : list)
 	{
 		System.out.println(c+" "+q+" "+this.fOutMin+" "+num+" "+f.getFlow()*3600*24+" "+r.getFlowMedio());
 		double per=Math.random();
 		if(per<=0.05){
-			c=c+f.getFlow()*3600*24;
+			c=c+f.getFlow()*86400;
 		if (c>q)
 			c=q;
 		
-			c=-fOutMin*3600*24*10;
+			c=c-fOutMin*864000;
 			
 			
 		}else{
-			c=c+f.getFlow()*3600*24;
+			c=c+f.getFlow()*86400;
 			if (c>q)
 				c=q;
 			
-				c=-fOutMin*3600*24;
+				c=c-fOutMin*86400;
 				
 		
 			
